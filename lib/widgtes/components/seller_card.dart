@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uplace/application/services/implementations/testeService.dart';
 import 'package:uplace/models/seller.dart';
+import 'package:uplace/models/teste.dart';
 import 'package:uplace/widgtes/components/utils/error_alert.dart';
 import 'package:uplace/widgtes/routes/routes.dart';
 import 'package:uplace/widgtes/themes/colors.dart';
@@ -15,8 +17,13 @@ class SellerCard extends StatefulWidget {
 
 class _SellerCardState extends State<SellerCard> {
   bool isFavorite = false;
+  final TesteService _testeService = TesteService();
 
-  void toggleFavorite() {
+  void toggleFavorite() async {
+    var teste = await _testeService.obterTeste() as List<Teste>;
+    teste.forEach((e) {
+      print("${e.id}: ${e.descricao}");
+    });
     setState(() {
       isFavorite = !isFavorite;
     });
@@ -80,7 +87,7 @@ class _SellerCardState extends State<SellerCard> {
           ),
         ),
         IconButton(
-            onPressed: () {
+            onPressed: () async {
               toggleFavorite();
             },
             icon: isFavorite
