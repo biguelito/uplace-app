@@ -7,8 +7,9 @@ class TesteService extends BaseService {
   TesteService();
 
   Future<List<Teste>?> obterTeste() async {
-    final response = await http
-        .get(Uri.parse('${const String.fromEnvironment("API_COMMON")}/teste'));
+    final url =
+        Uri.parse('${const String.fromEnvironment("API_COMMON")}/api/teste');
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body) as List<dynamic>;
